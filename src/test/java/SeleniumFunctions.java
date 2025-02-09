@@ -31,12 +31,16 @@ public class SeleniumFunctions {
     }
 
 
+    public String getElementText(String locator) {
+        return driver.findElement(By.xpath(locator)).getText();
+    }
 
 
     public void selectDropDown(String locator, String value) {
         Select dropdown = new Select(driver.findElement(By.xpath(locator)));
         dropdown.selectByValue(value);
     }
+
     public void closeBrowser() {
         driver.close();
     }
