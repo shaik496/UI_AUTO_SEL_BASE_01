@@ -2,6 +2,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.Select;
 
 public class SeleniumFunctions {
 
@@ -26,8 +27,16 @@ public class SeleniumFunctions {
     public void mouseHoverTo(String locator) {
         Actions action = new Actions(driver);
         action.moveToElement(driver.findElement(By.xpath(locator)));
+        driver.close();
     }
 
+
+
+
+    public void selectDropDown(String locator, String value) {
+        Select dropdown = new Select(driver.findElement(By.xpath(locator)));
+        dropdown.selectByValue(value);
+    }
     public void closeBrowser() {
         driver.close();
     }
