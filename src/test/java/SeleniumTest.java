@@ -4,5 +4,6 @@ public class SeleniumTest {
        functions.registerApp();
        functions.verifyNewlyCreatedUser();
        functions.closeBrowser();
+
     }
 }

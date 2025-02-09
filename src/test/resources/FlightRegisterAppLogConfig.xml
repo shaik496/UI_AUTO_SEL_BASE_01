@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN" monitorInterval="5">
+    <Appenders>
+        <!-- Console Appender (Logs to Console) -->
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout>
+                <Pattern>%d{yyyy-MM-dd HH:mm:ss} [%t] %-5level %c{1}.%M(%F:%L) - %msg%n</Pattern>
+            </PatternLayout>
+        </Console>
+
+        <!-- Rolling File Appender for Framework Logs -->
+        <RollingFile name="FrameworkLogger" fileName="logs/framework.log"
+                     filePattern="logs/framework-%d{yyyy-MM-dd-HH}.log.gz">
+            <PatternLayout>
+                <Pattern>%d{yyyy-MM-dd HH:mm:ss} [%t] %-5level %c{1}.%M(%F:%L) - %msg%n</Pattern>
+            </PatternLayout>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="10MB"/>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+            </Policies>
+            <DefaultRolloverStrategy max="10"/>
+        </RollingFile>
+
+        <!-- Rolling File Appender for Test Logs -->
+        <RollingFile name="TestLogger" fileName="logs/UITest.log"
+                     filePattern="logs/UITest-%d{yyyy-MM-dd-HH}.log.gz">
+            <PatternLayout>
+                <Pattern>%d{yyyy-MM-dd HH:mm:ss} [%t] %-5level %c{1}.%M(%F:%L) - %msg%n</Pattern>
+            </PatternLayout>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="10MB"/>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+            </Policies>
+            <DefaultRolloverStrategy max="10"/>
+        </RollingFile>
+    </Appenders>
+
+    <Loggers>
+        <!-- Root Logger (Logs everything to console) -->
+        <Root level="debug">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="FrameworkLogger"/>
+            <AppenderRef ref="TestLogger"/>
+        </Root>
+
+        <!-- Logger for CoreUtils package (Framework Logs) -->
+        <Logger name="main.java" level="info" additivity="false">
+            <AppenderRef ref="FrameworkLogger"/>
+        </Logger>
+
+        <!-- Logger for Test package (Test Logs) -->
+        <Logger name="test.java" level="info" additivity="false">
+            <AppenderRef ref="TestLogger"/>
+        </Logger>
+    </Loggers>
+</Configuration>
